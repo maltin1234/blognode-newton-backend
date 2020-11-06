@@ -1,5 +1,3 @@
-// post.model.js
-
 const express = require("express");
 const postRoutes = express.Router();
 
