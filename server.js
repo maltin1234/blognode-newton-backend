@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const PORT = 4000;
 const cors = require("cors");
 const mongoose = require("mongoose");
-const config = require("./DB.js");
-const postRoute = require("./post.route");
+const config = require("./api/DB.js");
+const postRoute = require("./routes/post.route");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
