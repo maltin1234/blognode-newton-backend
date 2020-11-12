@@ -1,3 +1,4 @@
 module.exports = {
-    DB: 'mongodb://localhost:27017/mevncrud'
-}
+  DB:
+    "mongodb+srv://m001-student:m001-mongodb-basics@cluster0.pomof.mongodb.net/blog?retryWrites=true&w=majority",
+};
