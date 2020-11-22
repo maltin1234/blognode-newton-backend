@@ -22,6 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/posts", postRoute);
+app.use("/posts/:id", function (req, res, next) {
+  console.log("Request Id:", req.params.id);
+  next();
+});
 
 app.listen(PORT, function () {
   console.log("Server is running on Port:", PORT);
