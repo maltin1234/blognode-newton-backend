@@ -1,32 +1,56 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-const PORT = 4000;
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const config = require("./api/DB.js");
-const postRoute = require("./routes/post.route");
+const Quote = require("./models/Post");
+const quoteRoute = require("./routes/postRoute");
+const quoteController = require("../Maxico/controllers/postController");
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-  () => {
-    console.log("Database is connected");
-  },
-  (err) => {
-    console.log("Can not connect to the database" + err);
-  }
-);
+const Role = require("./models/Role");
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+const app = express();
+//Import routes
+//const authRoute = require("./routes/auth");
+
+var corsOptions = {
+  origin: "http://localhost:8081",
+};
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-app.use("/posts", postRoute);
-app.use("/posts/:id", function (req, res, next) {
-  console.log("Request Id:", req.params.id);
-  next();
-});
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(PORT, function () {
-  console.log("Server is running on Port:", PORT);
+const db = require("./models/Quote");
+mongoose
+  .connect(
+    "mongodb+srv://m001-student:m001-mongodb-basics@cluster0.pomof.mongodb.net/Blog-Backend?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    }
+  )
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch((err) => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+
+app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Welcome to homepage");
+});
+app.use("/post", postRoute);
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
