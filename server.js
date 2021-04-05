@@ -3,11 +3,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const Quote = require("./models/Post");
-const quoteRoute = require("./routes/postRoute");
-const quoteController = require("../Maxico/controllers/postController");
-
-const Role = require("./models/Role");
+const Post = require("./models/Post");
+const postRoute = require("./routes/postRoute");
+const postController = require("./controllers/postController");
 
 const app = express();
 //Import routes
@@ -25,7 +23,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./models/Quote");
+const db = require("./models/Post");
 mongoose
   .connect(
     "mongodb+srv://m001-student:m001-mongodb-basics@cluster0.pomof.mongodb.net/Blog-Backend?retryWrites=true&w=majority",

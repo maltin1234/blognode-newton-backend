@@ -1,17 +1,23 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
-const postController = require("../controllers/quoteController");
+const postController = require("../controllers/postController");
 
-router.post("/create", postController.quoteCreate);
+//http://localhost:8080/posts/create
+router.post("/create", postController.postCreate);
 
-router.post("/update/:id", postController.quoteUpdate);
+//http://localhost:8080/posts/update/:id
+router.post("/update/:id", postController.postUpdate);
 
-router.get("/", quoteController.quoteAll);
+//http://localhost:8080/posts
+router.get("/", postController.postAll);
 
-router.get("/:id", quoteController.quoteSingle);
+//http://localhost:8080/posts/:id
+router.get("/:id", postController.postSingle);
 
+//http://localhost:8080/posts/delete/:id
 router.delete("/delete/:id", postController.postDelete);
 
+//http://localhost:8080/posts/deleteAll
 router.delete("/deleteAll", postController.postDeleteAll);
 
 module.exports = router;

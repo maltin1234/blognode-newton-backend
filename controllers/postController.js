@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const Quote = require("../models/Quote");
-const quouteRoute = require("../routes/quoteRoute");
+const Post = require("../models/Post");
+const postRoute = require("../routes/postRoute");
 const server = require("../server");
 
 // find all quotes
 const postAll = (req, res) => {
-  Quote.find()
+  Post.find()
     .then((result) => {
       res.send(result);
     })
@@ -17,7 +17,7 @@ const postAll = (req, res) => {
 // find single quote by id
 const postSingle = (req, res) => {
   const id = req.params.id;
-  Quote.findById(id)
+  Post.findById(id)
     .then((result) => {
       res.send(result);
     })
@@ -29,12 +29,11 @@ const postSingle = (req, res) => {
 // create a quote
 const postCreate = (req, res) => {
   console.log(req.body);
-  const quote = new Quote({
+  const post = new Post({
     title: req.body.title,
-    text: req.body.text,
-    keyword: req.body.keyword,
+    body: req.body.body,
   });
-  quote
+  post
     .save()
     .then((result) => {
       res.send(result);
@@ -52,17 +51,17 @@ const postDelete = (req, res) => {
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Quote with id=${id}. Maybe quote was not found!`,
+          message: `Cannot delete Post with id=${id}. Maybe quote was not found!`,
         });
       } else {
         res.send({
-          message: "Quote was deleted successfully!",
+          message: "Post was deleted successfully!",
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete quote with id=" + id,
+        message: "Could not delete post with id=" + id,
       });
     });
 };
@@ -93,8 +92,8 @@ const postUpdate = (req, res) => {
 };
 
 // Delete all Tutorials from the database.
-const quoteDeleteAll = (req, res) => {
-  Quote.deleteMany({})
+const postDeleteAll = (req, res) => {
+  Post.deleteMany({})
     .then((data) => {
       res.send({
         message: `${data.deletedCount} Tutorials were deleted successfully!`,
@@ -108,23 +107,12 @@ const quoteDeleteAll = (req, res) => {
     });
 };
 
-//Find document by key word
-const quoteKeyword = (req, res) => {
-  Quote.find({ keyword: req.body.keyword })
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 //get a quote by a searchstring
 module.exports = {
-  quoteAll,
-  quoteSingle,
-  quoteCreate,
-  quoteDelete,
-  quoteUpdate,
-  posyDeleteAll,
+  postAll,
+  postSingle,
+  postCreate,
+  postDelete,
+  postUpdate,
+  postDeleteAll,
 };
