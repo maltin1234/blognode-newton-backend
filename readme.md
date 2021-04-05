@@ -2,7 +2,20 @@
 2. node server.js
 
 HTTP requests:
-get("http://localhost:4000/posts");
-post("http://localhost:4000/posts/add"
-delete(`http://localhost:4000/posts/delete/${id}
-http://localhost:4000/posts/update/${id}
+http://localhost:8080/posts/create
+
+
+http://localhost:8080/posts/update/:id
+
+
+http://localhost:8080/posts
+
+
+http://localhost:8080/posts/:id
+
+
+http://localhost:8080/posts/delete/:id
+
+
+http://localhost:8080/posts/deleteAll
+
